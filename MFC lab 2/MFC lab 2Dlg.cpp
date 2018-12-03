@@ -18,6 +18,7 @@
 
 CMFClab2Dlg::CMFClab2Dlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_MFCLAB2_DIALOG, pParent)
+	, qTimer(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -25,11 +26,13 @@ CMFClab2Dlg::CMFClab2Dlg(CWnd* pParent /*=NULL*/)
 void CMFClab2Dlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_EDIT1, qTimer);
 }
 
 BEGIN_MESSAGE_MAP(CMFClab2Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_EN_CHANGE(IDC_EDIT1, &CMFClab2Dlg::timerChange)
 END_MESSAGE_MAP()
 
 
@@ -45,6 +48,8 @@ BOOL CMFClab2Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Мелкий значок
 
 	// TODO: добавьте дополнительную инициализацию
+
+	qTimer = "0";
 
 	return TRUE;  // возврат значения TRUE, если фокус не передан элементу управления
 }
@@ -85,3 +90,16 @@ HCURSOR CMFClab2Dlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CMFClab2Dlg::timerChange()
+{	
+	if(getchar != "123456789")
+	MessageBox(L"Please integer!", L"!!!", MB_ICONEXCLAMATION | MB_OK);
+	// TODO:  If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialogEx::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+
+	// TODO:  Add your control notification handler code here
+}
